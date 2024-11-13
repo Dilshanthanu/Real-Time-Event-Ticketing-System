@@ -14,11 +14,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class webSecurityConfig {
 
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public SecurityFilterChain applicationSecurity(HttpSecurity http) throws Exception {
-        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
         http
                 .cors(cors -> cors.disable())
                 .csrf(csrf -> csrf.disable())
