@@ -14,7 +14,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class webSecurityConfig {
 
-
     @Bean
     public SecurityFilterChain applicationSecurity(HttpSecurity http) throws Exception {
 
@@ -27,7 +26,13 @@ public class webSecurityConfig {
                 .formLogin(form -> form.disable())
                 .securityMatcher("/**")
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/api/v1/user/login").permitAll()  // Allow unauthenticated access
+                        .requestMatchers(
+                                "/",
+                                "/api/v1/user/login",
+                                "/api/v1/user/sign_up",  // Added signup endpoint
+                                "/api/v1/ticketPool/initialize",
+                                "/api/v1/ticketPool/addTicket" // Allow unauthenticated access to addTicket
+                        ).permitAll()
                         .anyRequest().authenticated()  // Restrict other endpoints
                 );
         return http.build();

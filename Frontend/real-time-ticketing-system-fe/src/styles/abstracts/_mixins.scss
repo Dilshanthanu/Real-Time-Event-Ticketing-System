@@ -1,0 +1,98 @@
+$breakpoints: (
+	'small': 480px,
+	'medium': 768px,
+	'large': 1024px,
+	'x-large': 1920px,
+);
+
+@mixin respond-to($size) {
+	@media screen and (min-width:#{map-get($breakpoints, $size)}) {
+		@content;
+	}
+}
+
+// flex box css ............................
+.iit {
+	&__flex {
+		display: flex;
+	}
+
+	&__flex-direction-row {
+		-webkit-flex-direction: row;
+		-ms-flex-direction: row;
+		flex-direction: row;
+	}
+	&__flex-direction-column {
+		-webkit-flex-direction: column;
+		-ms-flex-direction: column;
+		flex-direction: column;
+	}
+
+	&__item {
+		order: 0;
+		flex: 0 1 auto;
+		align-self: auto;
+	}
+
+	&__item--center {
+		align-items: center;
+	}
+
+	&__item--justify--center {
+		justify-content: center;
+	}
+}
+
+// .iit__flex {
+//   display: flex;
+// }
+// .iit__flex-direction-row {
+//   -webkit-flex-direction: row;
+//   -ms-flex-direction: row;
+//   flex-direction: row;
+// }
+// .iit__flex-direction-colum {
+//   -webkit-flex-direction: colum;
+//   -ms-flex-direction: colum;
+//   flex-direction: colum;
+// }
+// .iit__item {
+//   order: 0;
+//   flex: 0 1 auto;
+//   align-self: auto;
+// }
+// .iit__item--center {
+//   align-items: center;
+// }
+// .iit__item--justify--center {
+//   justify-content: center;
+// }
+
+.iit__item--center-2 {
+	align-items: flex-start;
+}
+
+.PrivateNotchedOutline-root-53 {
+	box-shadow: 0 1px 3px 0 rgba(32, 33, 36, 0.28);
+	position: relative;
+	z-index: 0;
+
+	&:hover {
+		transition: all 0.2s ease-out;
+		border: 1px solid #c01212 !important;
+		background-color: $white-color;
+	}
+}
+
+.makeStyles-roundedBtn-41 {
+	background-color: rgb(234 235 243) !important;
+	&:hover {
+		transition: all 0.2s ease-out !important;
+		background-color: $primary-color !important;
+		color: $white-color !important;
+		p.iil-txt-small {
+			transition: all 0.2s ease-out !important;
+			color: $white-color !important;
+		}
+	}
+}

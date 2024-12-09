@@ -3,6 +3,7 @@ package com.example.Real_Time.Event.Ticketing.System.Service;
 import com.example.Real_Time.Event.Ticketing.System.Entity.user;
 import com.example.Real_Time.Event.Ticketing.System.Repo.UserRepo;
 import com.example.Real_Time.Event.Ticketing.System.util.VarList;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 @Service
@@ -11,29 +12,33 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
 
-    public String loggedIn(user userEntity) {
+    public user loggedIn(user userEntity) {
         try {
             user foundUser = userRepo.findByEmail(userEntity.getEmail());
             if (foundUser != null) {
-                return VarList.RSP_SUCCESS;
+               if (foundUser.getPassword().equals(userEntity.getPassword())) {
+                   return foundUser;
+               }else {
+                   return null;
+               }
             }
-            return VarList.RSP_NO_DATA_FOUND;
+            return null;
         }catch (Exception e) {
-            return VarList.RSP_ERROR;
+            throw new RuntimeException(e.getMessage());
         }
 
     }
 
-    public String Sign(user userEntity) {
+    public user Sign(user userEntity) {
         try{
             if (!userRepo.existsByEmail(userEntity.getEmail())){
                 userRepo.save(userEntity);
-                return VarList.RSP_SUCCESS;
+                return  userRepo.findByEmail(userEntity.getEmail());
             }else {
-                return VarList.RSP_NO_DATA_FOUND;
+                return null;
             }
         }catch (Exception e) {
-            return VarList.RSP_ERROR;
+            throw new RuntimeException(e.getMessage());
         }
 
     }

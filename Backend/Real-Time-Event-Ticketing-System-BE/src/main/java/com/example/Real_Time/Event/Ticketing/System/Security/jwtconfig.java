@@ -21,8 +21,8 @@ public class jwtconfig {
         return JWT.create()
                 .withSubject(String.valueOf(userId))
                 .withExpiresAt(Instant.now().plus(Duration.of(1, ChronoUnit.DAYS)))
-                .withClaim("email", email)  // Use a unique key for email
-                .withClaim("roles", roles)  // Use a unique key for roles
+                .withClaim("email", email)
+                .withClaim("roles", roles)
                 .sign(Algorithm.HMAC256(jwtProperties.getSecretKey()));
         }
 }
