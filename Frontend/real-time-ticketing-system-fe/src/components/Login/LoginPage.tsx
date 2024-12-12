@@ -17,10 +17,15 @@ const LoginPage = () => {
     try {
       const response = await login({ email, password });
       if (response.code === '00') {
-        const { id, access_token } = response.content;
-        const role = 'user'; // Replace with actual role if available
+        const { id, access_token, role } = response.content;
         saveAuthData(id, access_token, role);
-        navigate('/dashboard');
+        if (role === 'USER') {
+          navigate('/user-dashboard');
+        } else if (role === 'vendor') {
+          navigate('/vendor-dashboard');
+        } else {
+          setError('Unknown role. Please contact support.');
+        }
       } else {
         setError('Invalid credentials');
       }
@@ -29,52 +34,68 @@ const LoginPage = () => {
     }
   };
 
+  const navigateToSignUp = () => {
+    navigate('/sign-up'); 
+  };
+
   return (
     <Container maxWidth="sm" className="login-container">
-    <Box className="form-box">
-      <Typography variant="h4" component="h1" className="title">
-        Login
-      </Typography>
-      <Box component="form" onSubmit={handleSubmit} noValidate className="form">
-        <TextField
-          className="input-field"
-          margin="normal"
-          required
-          fullWidth
-          label="Email Address"
-          type="email"
-          autoComplete="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <TextField
-          className="input-field"
-          margin="normal"
-          required
-          fullWidth
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {error && (
-          <Typography className="error-message" variant="body2">
-            {error}
-          </Typography>
-        )}
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          className="submit-button"
-        >
+      <Box className="form-box">
+        <Typography variant="h4" component="h1" className="title">
           Login
-        </Button>
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} noValidate className="form">
+          <TextField
+            className="input-field"
+            margin="normal"
+            required
+            fullWidth
+            label="Email Address"
+            type="email"
+            autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            className="input-field"
+            margin="normal"
+            required
+            fullWidth
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {error && (
+            <Typography className="error-message" variant="body2">
+              {error}
+            </Typography>
+          )}
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            className="submit-button"
+          >
+            Login
+          </Button>
+        </Box>
+        <Box mt={2} className="navigate-to-signup">
+          <Typography variant="body2">
+            Don’t have an account?{' '}
+            <Button
+              variant="text"
+              color="primary"
+              onClick={navigateToSignUp}
+              className="signup-link"
+            >
+              Sign Up
+            </Button>
+          </Typography>
+        </Box>
       </Box>
-    </Box>
-  </Container>
-  
+    </Container>
   );
 };
 

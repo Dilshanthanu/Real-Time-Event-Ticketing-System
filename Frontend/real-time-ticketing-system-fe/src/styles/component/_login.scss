@@ -6,6 +6,7 @@
     align-items: center;
     min-height: 100vh;
     background-color:$background-color;
+    max-width: unset;
   
     .form-box {
       background: $white;

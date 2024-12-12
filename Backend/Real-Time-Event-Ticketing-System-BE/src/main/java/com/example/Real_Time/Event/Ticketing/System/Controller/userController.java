@@ -84,6 +84,7 @@ public class userController {
             user res = userService.Sign(modelMapper.map(userDto, user.class));
             if (res != null) {
                 var token = jwtconfig.jwt(res.getId(), userDto.getEmail(), List.of("user"));
+                responseDTO.setCode(VarList.RSP_SUCCESS);
                 responseDTO.setContent(SignInResponseDto.builder()
                         .access_token(token)
                         .email(userDto.getEmail())
@@ -92,6 +93,7 @@ public class userController {
                         .id(res.getId())
                         .role(res.getRole())
                         .build());
+                responseDTO.setMessage("SignUp successful");
                 responseDTO.setContent(userDto);
                 return new ResponseEntity<>(responseDTO, HttpStatus.ACCEPTED);
             } else if (res == null) {

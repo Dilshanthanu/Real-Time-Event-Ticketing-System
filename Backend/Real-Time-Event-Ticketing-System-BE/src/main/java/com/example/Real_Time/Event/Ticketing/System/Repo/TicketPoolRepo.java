@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface TicketPoolRepo extends JpaRepository<TicketPool, Integer> {
 
     @Query("SELECT t.maxTicketsCapacity FROM TicketPool t WHERE t.id = :id")
-    Integer findMaxTicketCapacityById(int id);
+    int findMaxTicketsCapacityById(int id);
 
     @Modifying
     @Transactional

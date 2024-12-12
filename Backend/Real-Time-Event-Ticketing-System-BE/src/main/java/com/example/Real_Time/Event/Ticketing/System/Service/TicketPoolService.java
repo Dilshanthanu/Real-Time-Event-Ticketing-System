@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class TicketPoolService {
@@ -32,7 +33,8 @@ public class TicketPoolService {
 
             // Create and save a new ticket
             Ticket ticket = new Ticket();
-            ticket.setId(1L);
+            Long newId = ticketRepo.findMaxId() + 1; // Custom query to get the highest id
+            ticket.setId(newId);
             ticket.setStatus("AVAILABLE");
             ticket.setTicketCount(configaration.getTotalTickets());
             ticketRepo.save(ticket);
@@ -52,7 +54,7 @@ public class TicketPoolService {
     public synchronized String addTicket(int count) {
         try {
             int available = ticketRepo.findTotalTicketCountByStatus("AVAILABLE");
-            int maxCapacity = ticketPoolRepo.findMaxTicketCapacityById(1);
+            int maxCapacity = ticketPoolRepo.findMaxTicketsCapacityById(1);
 
             if (available + count > maxCapacity) {
                 count = maxCapacity - available;
@@ -70,7 +72,8 @@ public class TicketPoolService {
             ticketPoolRepo.updateTotalTicketsById(1,ticket.getTicketCount() + count);
             ticket.setTicketCount(ticket.getTicketCount() + count);
 
-            ticketRepo.save(ticket);
+            Long newId = ticketRepo.findMaxId() + 1;
+            ticket.setId(newId);
 
 
             System.out.println("Ticket updated successfully.");
@@ -95,6 +98,7 @@ public class TicketPoolService {
         ticketRepo.updateTicketCountByStatus(availableTickets - count,"AVAILABLE");
 
        Ticket ticket = new Ticket();
+       ticket.setId(2L);
         ticket.setStatus("PURCHASED");
         ticket.setCreatedAt(LocalDateTime.now());
         ticket.setTicketCount(count);
@@ -102,5 +106,9 @@ public class TicketPoolService {
 
         return VarList.RSP_SUCCESS;
 
+    }
+
+    public List<TicketPool> ticketPool(){
+       return ticketPoolRepo.findAll();
     }
 }

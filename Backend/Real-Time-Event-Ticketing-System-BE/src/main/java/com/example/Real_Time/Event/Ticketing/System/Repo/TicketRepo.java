@@ -9,7 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface TicketRepo extends JpaRepository<Ticket, Long> {
     @Query("SELECT SUM(e.ticketCount) FROM Ticket e WHERE e.status = :status")
-    int findTotalTicketCountByStatus(@Param("status") String status);
+    Integer findTotalTicketCountByStatus(@Param("status") String status);
+
 
     @Query("SELECT t.id FROM Ticket t WHERE t.status = :status")
     Long findIdsByStatus(String status);
@@ -23,5 +24,6 @@ public interface TicketRepo extends JpaRepository<Ticket, Long> {
     @Query("UPDATE Ticket t SET t.ticketCount = :ticketCount WHERE t.status = :status")
     int updateTicketCountByStatus(@Param("ticketCount") int ticketCount, @Param("status") String status);
 
-
+    @Query("SELECT COALESCE(MAX(t.id), 0) FROM Ticket t")
+    Long findMaxId();
 }
