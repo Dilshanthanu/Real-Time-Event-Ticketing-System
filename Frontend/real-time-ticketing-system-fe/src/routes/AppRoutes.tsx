@@ -62,7 +62,7 @@ const AppRoutes = () => {
       <Route
         path="/ticket-pool/add"
         element={
-          <ProtectedRoute allowedRoles={["vendor"]}>
+          <ProtectedRoute allowedRoles={["VENDOR"]}>
             <AddTicketScreen />
           </ProtectedRoute>
         }
@@ -70,7 +70,7 @@ const AppRoutes = () => {
       <Route
         path="/ticket-pool/initialize"
         element={
-          <ProtectedRoute allowedRoles={["vendor"]}>
+          <ProtectedRoute allowedRoles={["VENDOR"]}>
             <TicketPoolInitialization />
           </ProtectedRoute>
         }
@@ -79,7 +79,7 @@ const AppRoutes = () => {
       <Route
         path="/vendor-remove"
         element={
-          <ProtectedRoute allowedRoles={["vendor"]}>
+          <ProtectedRoute allowedRoles={["VENDOR"]}>
             <VendorScreen />
           </ProtectedRoute>
         }
@@ -95,7 +95,7 @@ const AppRoutes = () => {
         <Route
           path="/Remove-ticket"
           element={
-            <ProtectedRoute allowedRoles={['vendor']}>
+            <ProtectedRoute allowedRoles={['VENDOR']}>
               <RemoveTickets />
             </ProtectedRoute>
           }

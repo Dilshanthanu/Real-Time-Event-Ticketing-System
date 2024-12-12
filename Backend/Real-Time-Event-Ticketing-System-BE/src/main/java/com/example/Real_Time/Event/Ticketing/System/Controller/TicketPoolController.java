@@ -82,27 +82,38 @@ public class TicketPoolController {
 
 
     @PutMapping(value = "/removeTickets")
-    public ResponseEntity removeTickets(@RequestParam(required = false) Integer count){
-        try{
+    public ResponseEntity<?> removeTickets(@RequestBody AddTicketsDto countDto) {
+        try {
+            // Extract the integer value from AddTicketsDto
+            Integer count = countDto.getCount();
+
+            if (count == null || count <= 0) {
+                responseDTO.setMessage("Invalid count value. It must be greater than 0.");
+                responseDTO.setContent(null);
+                responseDTO.setCode(VarList.RSP_FAIL);
+                return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
+            }
+
             String res = ticketPoolService.removeTicket(count);
             if (res.equals("00")) {
-                responseDTO.setMessage("Ticket added successful");
+                responseDTO.setMessage("Tickets removed successfully");
                 responseDTO.setContent(count);
                 responseDTO.setCode(res);
                 return new ResponseEntity<>(responseDTO, HttpStatus.ACCEPTED);
             } else {
-                responseDTO.setMessage("Ticket added failed");
+                responseDTO.setMessage("Failed to remove tickets");
                 responseDTO.setContent(count);
                 responseDTO.setCode(res);
                 return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             responseDTO.setMessage(e.getMessage());
-            responseDTO.setContent(count);
+            responseDTO.setContent(null);
             responseDTO.setCode(VarList.RSP_FAIL);
             return new ResponseEntity<>(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 
     @GetMapping(value = "/getTicketPool")
     public List<TicketPool> getTicketPool(){

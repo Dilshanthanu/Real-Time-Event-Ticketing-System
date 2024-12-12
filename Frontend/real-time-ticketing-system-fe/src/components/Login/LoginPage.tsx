@@ -20,8 +20,8 @@ const LoginPage = () => {
         const { id, access_token, role } = response.content;
         saveAuthData(id, access_token, role);
         if (role === 'USER') {
-          navigate('/user-dashboard');
-        } else if (role === 'vendor') {
+          navigate('/vendor-dashboard');
+        } else if (role === 'VENDOR') {
           navigate('/vendor-dashboard');
         } else {
           setError('Unknown role. Please contact support.');
@@ -39,7 +39,8 @@ const LoginPage = () => {
   };
 
   return (
-    <Container maxWidth="sm" className="login-container">
+    <div className='background'>
+       <Container maxWidth="sm" className="login-container">
       <Box className="form-box">
         <Typography variant="h4" component="h1" className="title">
           Login
@@ -96,6 +97,8 @@ const LoginPage = () => {
         </Box>
       </Box>
     </Container>
+    </div>
+   
   );
 };
 

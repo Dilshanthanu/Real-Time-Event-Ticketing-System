@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, TextField, Button, Typography, Box } from '@mui/material';
 import { initializeTicketPool } from '../../api/TicketPoolService';
+import '../../styles/main.scss';
 
 const TicketPoolInitialization = () => {
   const [totalTickets, setTotalTickets] = useState<number | string>('');
@@ -26,20 +27,20 @@ const TicketPoolInitialization = () => {
         setError('Failed to initialize the ticket pool');
       }
     } catch (err) {
-        if (err instanceof Error) {
-            setError(err.message); // Access the message safely
-          } else {
-            setError('An unexpected error occurred.');
-          }
+      if (err instanceof Error) {
+        setError(err.message); // Access the message safely
+      } else {
+        setError('An unexpected error occurred.');
+      }
     }
   };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 4 }}>
-      <Typography variant="h4" component="h1" gutterBottom>
+    <Container maxWidth="sm" className='container'>
+      <Typography variant="h4" component="h1" className='header'>
         Initialize Ticket Pool
       </Typography>
-      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 2 }}>
+      <Box component="form" onSubmit={handleSubmit} noValidate className='form'>
         <TextField
           label="Total Tickets"
           type="number"
@@ -48,6 +49,7 @@ const TicketPoolInitialization = () => {
           margin="normal"
           value={totalTickets}
           onChange={(e) => setTotalTickets(e.target.value)}
+          className='input-field'
         />
         <TextField
           label="Tickets Release Rate"
@@ -57,6 +59,7 @@ const TicketPoolInitialization = () => {
           margin="normal"
           value={ticketsReleaseRate}
           onChange={(e) => setTicketsReleaseRate(e.target.value)}
+          className='input-field'
         />
         <TextField
           label="Max Tickets Capacity"
@@ -66,18 +69,19 @@ const TicketPoolInitialization = () => {
           margin="normal"
           value={maxTicketsCapacity}
           onChange={(e) => setMaxTicketsCapacity(e.target.value)}
+          className='input-field'
         />
         {message && (
-          <Typography color="success.main" sx={{ mt: 2 }}>
+          <Typography className={`${'message'} ${'success'}`}>
             {message}
           </Typography>
         )}
         {error && (
-          <Typography color="error" sx={{ mt: 2 }}>
+          <Typography className={`${'message'} ${'error'}`}>
             {error}
           </Typography>
         )}
-        <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
+        <Button type="submit" variant="contained" fullWidth className='submit-button'>
           Initialize
         </Button>
       </Box>

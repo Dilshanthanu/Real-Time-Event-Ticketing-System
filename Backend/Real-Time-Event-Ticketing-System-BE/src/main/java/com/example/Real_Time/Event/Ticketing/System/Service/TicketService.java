@@ -11,8 +11,14 @@ public class TicketService {
     TicketRepo ticketRepo;
 
     public int getTicketsCount(String status){
-       int count = ticketRepo.findTotalTicketCountByStatus(status);
 
-       return count;
+        try{
+            int count = ticketRepo.findTotalTicketCountByStatus(status);
+
+            return count;
+        }catch (Exception e){
+            return 0;
+        }
+
     }
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Typography, Grid, Paper } from '@mui/material';
 import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
 import { getTicketPool, getTicketCount } from '../../api/DashboardService';
+import '../../styles/main.scss';
 
 const COLORS = ['#0088FE', '#00C49F'];
 
@@ -16,7 +17,7 @@ const Dashboard: React.FC = () => {
       try {
         const poolData = await getTicketPool();
         const availableCount = await getTicketCount('AVAILABLE');
-       const purchasedCount = await getTicketCount('PURCHASED');
+        const purchasedCount = await getTicketCount('PURCHASED');
 
         setTicketPool(poolData[0]);
         setAvailableTickets(availableCount);
@@ -39,20 +40,22 @@ const Dashboard: React.FC = () => {
   ];
 
   return (
-    <Box sx={{ p: 4 }}>
-      <Typography variant="h3" gutterBottom>
+    <Box className='dashboard-container'>
+      <Typography className='dashboard-title' gutterBottom>
         Ticket Pool Dashboard
       </Typography>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} className='grid-container'>
         <Grid item xs={12} md={6}>
-          <Paper sx={{ p: 2 }}>
-            <Typography variant="h6">Total Tickets</Typography>
-            <Typography variant="h4">{ticketPool?.totalTickets || 0}</Typography>
+          <Paper className='paper-card'>
+            <Typography className='card-title'>Total Tickets</Typography>
+            <Typography className='card-value'>
+              {ticketPool?.totalTickets || 0}
+            </Typography>
           </Paper>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Paper sx={{ p: 2 }}>
-            <ResponsiveContainer width="100%" height={300}>
+          <Paper className='paper-card chart-card'>
+            <ResponsiveContainer width="100%" height={300} className='chart-wrapper'>
               <PieChart>
                 <Pie
                   data={data}

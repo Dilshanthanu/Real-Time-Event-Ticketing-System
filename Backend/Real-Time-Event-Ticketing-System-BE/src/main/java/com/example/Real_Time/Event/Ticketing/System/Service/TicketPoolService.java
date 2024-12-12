@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -109,6 +110,11 @@ public class TicketPoolService {
     }
 
     public List<TicketPool> ticketPool(){
-       return ticketPoolRepo.findAll();
+        try {
+            return ticketPoolRepo.findAll();
+        }catch (Exception e){
+            return  null;
+        }
+
     }
 }

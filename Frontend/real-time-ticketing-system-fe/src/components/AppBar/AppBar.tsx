@@ -2,6 +2,8 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import RemoveTicketsModal from '../../pages/TicketPool/RemoveTickets'; // Adjust the import path as needed
+import TestModal from '../../pages/TicketPool/Test';
 
 const CustomAppBar = () => {
   const { logout, role } = useAuth(); // Assuming logout and role are in your context
@@ -24,8 +26,8 @@ const CustomAppBar = () => {
           Dashboard
         </Button>
 
-        {/* Vendor-only Buttons */}
-        {role === 'vendor' && (
+     
+        {role === 'VENDOR' && (
           <>
             <Button color="inherit" onClick={() => navigate('/ticket-pool/initialize')}>
               Ticket Pool
@@ -33,20 +35,17 @@ const CustomAppBar = () => {
             <Button color="inherit" onClick={() => navigate('/ticket-pool/add')}>
               Add Tickets
             </Button>
+            {/* Add Remove Tickets Modal Button */}
+            <RemoveTicketsModal />
           </>
         )}
 
         {/* User-only Button */}
         {role === 'USER' && (
-          <Button color="inherit" onClick={() => navigate('/purchase-ticket')}>
-            Purchase Tickets
-          </Button>
-        )}
-
-{role === 'vendor' && (
-          <Button color="inherit" onClick={() => navigate('/Remove-ticket')}>
-            Remove Tickets
-          </Button>
+          <>
+            {/* Purchase Tickets Modal */}
+            <TestModal />
+          </>
         )}
 
         {/* Logout Button */}

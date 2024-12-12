@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Container,
   TextField,
   Button,
   Typography,
-  Box,
-  MenuItem,
   Alert,
+  MenuItem,
 } from '@mui/material';
 import { signUpUser } from '../../api/SignUpService';
+import '../../styles/main.scss';
 
-const roles = ['user', 'vendor']; // Example roles
+const roles = ['USER', 'VENDOR'];
 
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
@@ -37,31 +36,21 @@ const SignUp: React.FC = () => {
     try {
       setError(null);
       setSuccess(null);
-      const response = await signUpUser(formData);
+      await signUpUser(formData);
       setSuccess('Sign-up successful!');
-      navigate('/login'); 
+      navigate('/login');
     } catch (err: any) {
       setError(err.message);
     }
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box
-        sx={{
-          mt: 8,
-          p: 4,
-          borderRadius: 2,
-          boxShadow: 3,
-          backgroundColor: 'white',
-        }}
-      >
-        <Typography variant="h4" gutterBottom>
-          Sign Up
-        </Typography>
-        {error && <Alert severity="error">{error}</Alert>}
-        {success && <Alert severity="success">{success}</Alert>}
-        <form onSubmit={handleSubmit}>
+    <div className='signup-container'>
+      <div className='signup-box'>
+        <Typography className='signup-title'>Sign Up</Typography>
+        {error && <Alert severity="error" className='alert'>{error}</Alert>}
+        {success && <Alert severity="success" className='alert'>{success}</Alert>}
+        <form onSubmit={handleSubmit} className='signup-form'>
           <TextField
             label="Name"
             name="name"
@@ -70,6 +59,7 @@ const SignUp: React.FC = () => {
             fullWidth
             margin="normal"
             required
+            className='input-field'
           />
           <TextField
             label="Email"
@@ -80,6 +70,7 @@ const SignUp: React.FC = () => {
             margin="normal"
             type="email"
             required
+            className='input-field'
           />
           <TextField
             label="Password"
@@ -90,6 +81,7 @@ const SignUp: React.FC = () => {
             margin="normal"
             type="password"
             required
+            className='input-field'
           />
           <TextField
             label="Role"
@@ -100,6 +92,7 @@ const SignUp: React.FC = () => {
             margin="normal"
             select
             required
+            className='input-field'
           >
             {roles.map((role) => (
               <MenuItem key={role} value={role}>
@@ -110,15 +103,22 @@ const SignUp: React.FC = () => {
           <Button
             type="submit"
             variant="contained"
-            color="primary"
             fullWidth
-            sx={{ mt: 2 }}
+            className='submit-button'
           >
             Sign Up
           </Button>
+          <Button
+            variant="text"
+            fullWidth
+            className='back-button'
+            onClick={() => navigate('/login')}
+          >
+            Back to Login
+          </Button>
         </form>
-      </Box>
-    </Container>
+      </div>
+    </div>
   );
 };
 

@@ -56,7 +56,10 @@ export const purchaseTickets = async (count: number) => {
 
 export const removeTickets = async (count: number) => {
   try {
-    const response = await axios.put(`http://localhost:8080/api/v1/ticketPool/removeTickets`, { count });
+    const response = await axios.put(
+      'http://localhost:8080/api/v1/ticketPool/removeTickets',
+      { count } // JSON body
+    );
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {

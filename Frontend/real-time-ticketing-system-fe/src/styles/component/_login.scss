@@ -1,71 +1,113 @@
 @import '../theme/variables.scss';
 
+// SCSS styles for the LoginPage component
+// SCSS styles for the LoginPage component
+
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color:$background-color;
-    max-width: unset;
-  
-    .form-box {
-      background: $white;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      padding: 40px;
-      width: 100%;
-      max-width: 400px;
-  
-      .title {
-        font-family: $font-family;
-        font-size: 24px;
-        font-weight: bold;
-        color: $primary-color;
-        margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #3a7bd5, #00d2ff);
+  font-family: 'Roboto', sans-serif;
+
+  .form-box {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    width: 100%;
+    max-width: 400px;
+
+    .title {
+      text-align: center;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+
+      .input-field {
+        margin-bottom: 15px;
+
+        & label {
+          font-weight: 500;
+          color: #666;
+        }
+
+        & .MuiOutlinedInput-root {
+          & fieldset {
+            border-color: #ccc;
+            transition: border-color 0.3s ease;
+          }
+
+          &:hover fieldset {
+            border-color: #3a7bd5;
+          }
+
+          &.Mui-focused fieldset {
+            border-color: #00d2ff;
+          }
+        }
+      }
+
+      .error-message {
+        color: #ff4d4f;
+        margin-bottom: 15px;
         text-align: center;
       }
-  
-      .form {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-  
-        .input-field {
-          .MuiInputBase-root {
-            border-radius: 4px;
-            background: $white;
-          }
-  
-          .MuiOutlinedInput-root {
-            &:hover .MuiOutlinedInput-notchedOutline {
-              border-color: $primary-hover-color;
-            }
-  
-            &.Mui-focused .MuiOutlinedInput-notchedOutline {
-              border-color: $primary-color;
-            }
-          }
+
+      .submit-button {
+        background: #3a7bd5;
+        color: #fff;
+        font-weight: bold;
+        text-transform: uppercase;
+        border-radius: 5px;
+        padding: 10px 0;
+        transition: background 0.3s ease;
+
+        &:hover {
+          background: #005bb5;
         }
-  
-        .error-message {
-          color: $error-color;
-          font-size: 14px;
-          text-align: left;
-        }
-  
-        .submit-button {
-          background: $primary-color;
-          color: $white;
-          font-size: 16px;
-          font-weight: bold;
-          text-transform: none;
-          border-radius: 4px;
-          padding: 10px 0;
-  
-          &:hover {
-            background: $primary-hover-color;
-          }
+      }
+    }
+
+    .navigate-to-signup {
+      text-align: center;
+      margin-top: 10px;
+
+      .signup-link {
+        text-transform: none;
+        font-weight: bold;
+        color: #3a7bd5;
+        padding: 0;
+
+        &:hover {
+          text-decoration: underline;
+          color: #005bb5;
         }
       }
     }
   }
+}
+
+// Mobile responsiveness
+@media (max-width: 768px) {
+  .login-container {
+    padding: 20px;
+
+    .form-box {
+      padding: 20px;
+    }
+  }
+}
+
+
+.background{
+  .MuiContainer-root{
+    max-width: unset !important;
+  }
+}
